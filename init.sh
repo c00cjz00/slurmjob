@@ -4,4 +4,5 @@ git config --global user.email summerhill001@gmail.com
 git checkout master
 git add *
 git commit -m "init"
+git push 
 
