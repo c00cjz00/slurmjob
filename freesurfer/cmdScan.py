@@ -1,4 +1,4 @@
-# EXAMPLE: python cmdScan.py ${HOME}/freesurfer/demo/ /work/c00cjz002/data/Powei20211109/ img
+# EXAMPLE: python cmdScan.py ${HOME}/freesurfer/demo/ /work/c00cjz002/data/Powei20211109/ img$
 
 def SLURM(cmd):
     ## SLURM 內容, 請修改 ---> Email
@@ -46,9 +46,27 @@ export SUBJECTS_DIR='''+ SUBJECTS_DIR +'''
 mkdir -p $SUBJECTS_DIR
 cd $SUBJECTS_DIR
 
-# -> 執行程式 1 (recon-all )
+# -> 執行程式
 echo "STEP01"
 recon-all -s $saveFolder -i $inputFile -all -qcache -parallel -openmp 3
+echo "STEP02"
+segmentThalamicNuclei.sh $saveFolder $SUBJECTS_DIR
+echo "STEP03"
+segmentHA_T1.sh $saveFolder $SUBJECTS_DIR
+echo "STEP04"
+mri_convert $saveFolder/mri/aparc+aseg.mgz $saveFolder/aparc+aseg.nii --out_orientation LAS
+echo "STEP05"
+mri_convert $saveFolder/mri/orig.mgz $saveFolder/orig.nii --out_orientation LAS
+echo "STEP06"
+mri_convert $saveFolder/mri/wmparc.mgz $saveFolder/wmparc.nii --out_orientation LAS
+echo "STEP07"
+mri_convert $saveFolder/mri/lh.hippoAmygLabels-T1.v21.FSvoxelSpace.mgz $saveFolder/lh.hippoAmygLabels-T1.v21.FSvoxelSpace.nii --out_orientation LAS
+echo "STEP08"
+mri_convert $saveFolder/mri/lh.hippoAmygLabels-T1.v21.FSvoxelSpace.mgz $saveFolder/rh.hippoAmygLabels-T1.v21.FSvoxelSpace.nii --out_orientation LAS
+echo "STEP09"
+mri_convert $saveFolder/mri/ThalamicNuclei.v12.T1.FSvoxelSpace.mgz $saveFolder/ThalamicNuclei.v12.T1.FSvoxelSpace.nii --out_orientation LAS
+echo "STEP10"
+zip -r $saveFolder.zip $saveFolder
 '''
     return cmd
 
@@ -72,6 +90,6 @@ for file in files:
         inputFile=FILES_PATH+file
         saveFolder=os.path.splitext(os.path.basename(inputFile))[0]
         cmd=createCMD(SUBJECTS_DIR, inputFile, saveFolder)
-        print(cmd)
-        #jobID = SLURM(cmd)
-        #print(jobID.strip()+' '+saveFolder)
+        #print(cmd)
+        jobID = SLURM(cmd)
+        print(jobID.strip()+' '+saveFolder)

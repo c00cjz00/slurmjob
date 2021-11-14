@@ -64,7 +64,7 @@ SUBJECTS_DIR=sys.argv[1]
 inputFile=sys.argv[2]
 saveFolder=os.path.splitext(os.path.basename(inputFile))[0]
 cmd=createCMD(SUBJECTS_DIR, inputFile, saveFolder)
-print(cmd)
+#print(cmd)
 
 ## 送出工作到計算節點電腦
 jobID = SLURM(cmd)
