@@ -14,10 +14,10 @@ def myimage(myENV,resetPackage=None):
     ## 導入環境變數 export PATH=...
     os.environ['PATH']=myPackageHome+"/.package_"+myENV+"_nchc_conda/envs/"+myENV+"/bin:"+os.environ['PATH'] 
 
-	## 設定單一環境變數
-	%env CONDA_PKGS_DIRS={myPackageHome}/.package_{myENV}_nchc_conda/pkgs
-	%env CONDA_ENVS_DIRS={myPackageHome}/.package_{myENV}_nchc_conda/envs
-	%env PYTHONUSERBASE={myPackageHome}/.package_{myENV}_nchc_conda/envs/{myENV}
+    ## 設定單一環境變數
+    %env CONDA_PKGS_DIRS={myPackageHome}/.package_{myENV}_nchc_conda/pkgs
+    %env CONDA_ENVS_DIRS={myPackageHome}/.package_{myENV}_nchc_conda/envs
+    %env PYTHONUSERBASE={myPackageHome}/.package_{myENV}_nchc_conda/envs/{myENV}
 
     ## 新增讀取sitepackage目錄
     tmp=(sysconfig.get_paths()["purelib"])
@@ -50,11 +50,10 @@ def myimage_singularity(resetPackage=None):
     ## 導入環境變數 export PATH=...
     os.environ['PATH']=myPackageHome+"/.package_"+myENV+"_nchc_conda/envs/"+myENV+"/bin:"+os.environ['PATH'] 
 
-	## 設定單一環境變數
-	%env CONDA_PKGS_DIRS={myPackageHome}/.package_{myENV}_nchc_conda/pkgs
-	%env CONDA_ENVS_DIRS={myPackageHome}/.package_{myENV}_nchc_conda/envs
-	%env PYTHONUSERBASE={myPackageHome}/.package_{myENV}_nchc_conda/envs/{myENV}
-
+    ## 設定單一環境變數
+    %env CONDA_PKGS_DIRS={myPackageHome}/.package_{myENV}_nchc_conda/pkgs
+    %env CONDA_ENVS_DIRS={myPackageHome}/.package_{myENV}_nchc_conda/envs
+    %env PYTHONUSERBASE={myPackageHome}/.package_{myENV}_nchc_conda/envs/{myENV}
 
     ## 新增讀取sitepackage目錄
     tmp=(sysconfig.get_paths()["purelib"])
