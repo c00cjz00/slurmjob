@@ -11,9 +11,6 @@ def myimage(myENV,resetPackage=None):
     uaername = get_ipython().getoutput('whoami')
     myPackageHome='/work/'+uaername[0]+'/myenv'
 
-    ## 導入環境變數 export PATH=...
-    os.environ['PATH']=myPackageHome+"/.package_"+myENV+"_nchc_conda/envs/"+myENV+"/bin:"+os.environ['PATH'] 
-
     ## 新增讀取sitepackage目錄
     tmp=(sysconfig.get_paths()["purelib"])
     dirname=os.path.dirname(tmp)
@@ -23,6 +20,10 @@ def myimage(myENV,resetPackage=None):
     mypipDir=sys_path_add
     sys.path.insert(0, sys_path_add)
 
+    ## 導入環境變數 export PATH=...
+    os.environ['PATH']=myPackageHome+"/.package_"+myENV+"_nchc_conda/envs/"+myENV+"/bin:"+os.environ['PATH'] 
+    os.environ['PATH']=mypipDir+"/bin:"+os.environ['PATH']     
+    
     ## 更新conda安裝目錄
     ###%env CONDA_PKGS_DIRS={myPackageHome}/.package_{myENV}_nchc_conda/pkgs
     ###%env CONDA_ENVS_DIRS={myPackageHome}/.package_{myENV}_nchc_conda/envs
