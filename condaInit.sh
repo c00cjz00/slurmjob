@@ -4,7 +4,7 @@
 if [ "$1" = "install_env" ]
 then
 	## 安裝 nvflare
-    echo "install conda env"
+	echo "install conda env"
 	myENV="$2" #nvflare
 	python_version="$3" #3.8
 	myPackageHome=/work/$(whoami)/myenv
